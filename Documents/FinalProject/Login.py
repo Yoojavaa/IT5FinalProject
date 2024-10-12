@@ -83,7 +83,7 @@ class Login:
             print("Login successful")
             self.window.destroy()
             import Dashboard
-            dashboard_window = Dashboard.dashboard()
-            dashboard_window.window.mainloop()
+            dashboard = Dashboard()
+            dashboard.window.mainloop()
         else:
             messagebox.showerror("Error", "Incorrect username or password")

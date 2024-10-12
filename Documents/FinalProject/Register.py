@@ -25,13 +25,6 @@ class Register:
         first_frame = tk.Frame(self.window, bg='#ff0000', width=frame_width, height=frame_height)
         first_frame.place(x=0, y=0)
 
-        image = Image.open("car.jpg")
-        image = image.resize((frame_width, frame_height))
-        self.image = ImageTk.PhotoImage(image)
-
-        image_label = tk.Label(first_frame, image=self.image)
-        image_label.place(relwidth=1, relheight=1)
-
         second_frame_width = window_width - frame_width
         second_frame = tk.Frame(self.window, bg='#ffffff', width=second_frame_width, height=frame_height)
         second_frame.place(x=frame_width, y=0)
