@@ -80,8 +80,8 @@ class Login:
         if result:
             print("Login successful")
             self.window.destroy()
-            import Register
-            register_window = Register.Register()
-            register_window.window.mainloop()
+            import Dashboard
+            dashboard_window = Dashboard.dashboard()
+            dashboard_window.window.mainloop()
         else:
             messagebox.showerror("Error", "Incorrect username or password")
