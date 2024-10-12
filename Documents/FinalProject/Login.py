@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import ImageTk, Image
 from Database import Database
+import Dashboard
 
 class Login:
     def __init__(self):
@@ -81,9 +82,8 @@ class Login:
         result = db.login(user, password)
         if result:
             print("Login successful")
-            self.window.destroy()
-            import Dashboard
-            dashboard = Dashboard()
-            dashboard.window.mainloop()
+            self.window.destroy()  
+            dashboard_instance = Dashboard.Dashboard() 
+            dashboard_instance.window.mainloop()  
         else:
             messagebox.showerror("Error", "Incorrect username or password")
