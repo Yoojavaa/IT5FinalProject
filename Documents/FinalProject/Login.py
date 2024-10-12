@@ -67,10 +67,12 @@ class Login:
         self.window.mainloop()
 
     def open_register(self, event):
-        self.window.destroy()
-        import Register
-        register_window = Register.Register()
-        register_window.window.mainloop()
+        try:
+            self.window.destroy()
+            from Register import Register
+            register_window = Register()
+        except Exception as e:
+            print(f"Error opening register window: {e}")
 
     def login(self):
         db = Database('localhost', 'root', '', 'final_project')

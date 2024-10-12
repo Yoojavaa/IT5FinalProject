@@ -33,10 +33,8 @@ class Register:
         image_label.place(relwidth=1, relheight=1)
 
         second_frame_width = window_width - frame_width
-        second_frame = tk.Frame(self.window, bg='#ffffff', width=second_frame_width, height=frame_height, bg='#ffffff')
+        second_frame = tk.Frame(self.window, bg='#ffffff', width=second_frame_width, height=frame_height)
         second_frame.place(x=frame_width, y=0)
-
-        second_frame.configure(bg='#ffffff')
 
         canvas = tk.Canvas(second_frame, width=second_frame_width, height=frame_height, bg='#ffffff', highlightthickness=0)
         canvas.pack(fill='both', expand=True)
@@ -69,9 +67,11 @@ class Register:
         self.confirm_password_input.place(relx=0.5, rely=0.55, anchor='center')
 
         create_account_button = tk.Button(canvas, text="Create Account", font=("Arial", 12), bg='#ff0000', fg='#ffffff', command=self.create_account)
-        create_account_button.place(relx=0.5, rely=0.6, anchor='center')
+        create_account_button.place(relx=0.5, rely=0.65, anchor='center')
 
-        self.window.mainloop()
+        login_label = tk.Label(canvas, text="Already have an account? Login here", font=("Arial", 10), bg='#ffffff', fg='#0000ff', cursor="hand2")
+        login_label.bind("<Button-1>", self.open_login)
+        login_label.place(relx=0.5, rely=0.75, anchor='center')
 
     def create_account(self):
         name = self.name_input.get()
@@ -79,12 +79,24 @@ class Register:
         password = self.password_input.get()
         confirm_password = self.confirm_password_input.get()
 
-        if password == confirm_password:
+        if not all([name, username, password, confirm_password]):
+            messagebox.showerror("Error", "All fields are required")
+            return
+
+        if password != confirm_password:
+            messagebox.showerror("Error", "Passwords do not match")
+            return
+
+        try:
             db = Database('localhost', 'root', '', 'final_project')
             db.register(name, username, password)
-            self.window.destroy()
-            import Login
-            login_window = Login.Login()
-            login_window.window.mainloop()
-        else:
-            messagebox.showerror("Error", "Passwords do not match")
+            messagebox.showinfo("Success", "Account created successfully")
+            self.open_login(None)
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred: {str(e)}")
+
+    def open_login(self, event):
+        self.window.destroy()
+        from Login import Login
+        login_window = Login()
+

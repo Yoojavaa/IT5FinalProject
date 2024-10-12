@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
 from datetime import date
-from database.Database import Database
+from Database import Database
 from PIL import Image, ImageTk
 
 class Dashboard:
@@ -129,7 +129,7 @@ class Dashboard:
         day_rent_entry = tk.Entry(rent_window, width=25)
         day_rent_entry.grid(row=5, column=1, pady=8)
 
-        tk.Label(rent_window, text="Cost per day  ", font=("Times", 12)).grid(row=6, column=0)
+        tk.Label(rent_window, text="Cost per day ", font=("Times", 12)).grid(row=6, column=0)
         cost_entry = tk.Entry(rent_window, width=25)
         cost_entry.grid(row=6, column=1, pady=8)
         cost_entry.insert(0, "4120")
