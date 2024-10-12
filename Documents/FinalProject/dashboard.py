@@ -16,6 +16,8 @@ class Dashboard:
         self.main_frame = tk.Frame(self.window, bg="#d3d3d3")
         self.main_frame.pack(fill=tk.BOTH, expand=True)
 
+        
+
         header = tk.Frame(self.main_frame, bg="#007bff", height=50)
         header.pack(fill=tk.X)
 
