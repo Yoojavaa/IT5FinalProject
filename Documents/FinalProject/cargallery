@@ -1,0 +1,77 @@
+import tkinter as tk
+from PIL import Image, ImageTk
+
+class Car_Gallery:
+    def __init__(self):
+        self.window = tk.Tk()
+        self.window.title("CAR GALLERY")
+
+
+        self.frame = tk.Frame(self.window)
+        self.frame.pack()
+        self.load_images()
+        self.show_images()
+
+    def load_images(self):
+        self.car_images = {
+            "Honda BR-V": Image.open("hondabr-v.jpg"),
+            "Honda HR-V": Image.open("hondahr-v.jpg"),
+            "Honda Brio": Image.open("hondab.jpg"),
+            "Honda Civic": Image.open("hondac.jpg"),
+            "Honda CR-V": Image.open("hondacr-v.jpg"),
+            "Toyota Hilux": Image.open("toyotahilux.jpg"),
+            "Toyota Innova MPV": Image.open("toyotainn.jpg"),
+            "Toyota Wigo G-CVT": Image.open("toyotawig.jpg"),
+            "Toyota Sienna": Image.open("toyotas.jpg"),
+            "Toyota Camry": Image.open("toyotac.jpg"),
+            "Ford Fusion": Image.open("fordf.jpg"),
+            "Ford Explorer": Image.open("fordex.jpg"),
+            "Kia Carnival": Image.open("kiac.png"),
+            "Honda Odyssey": Image.open("hondaodyssey.jpg"),
+            "Ford Transit": Image.open("fordtransit.jpg"),
+            "Mercedes-Benz Sprinter": Image.open("mercedes.jpg"),
+            "Chevrolet Express": Image.open("chevroletexpress.jpg"),
+            "Nissan Livina": Image.open("nissanlivina.jpg"),
+            "Ford Everest": Image.open("fordeverest.jpg"),
+            "Ford Everest Titanium": Image.open("fordeverestitanium.jpg"),
+            "Nissan NV350": Image.open("nissan.jpg"),
+            "Chevrolet Equinnox": Image.open("chevroletequinnox.jpg"),
+            "Chevrolet Colorado Z71": Image.open("chevroletcolorado.jpg"),
+            "Mercedes-Benz EQV": Image.open("mercedesbenzeqv.jpg"),
+            "GMC Savana": Image.open("gmcsavana.jpg"),
+            "Rivian R1T": Image.open("rivianr1t.jpg"),
+            "Honda Freed": Image.open("hondafreed.jpg"),
+            "Chrysler Pacifica Pinnacle": Image.open("chrysler.jpg"),
+            "Mitsubishi Xpander MPV": Image.open("mitsubishix.jpg"),
+            "Mitsubishi Mirage": Image.open("mitsubishim.jpg")
+        }
+
+        for brand in self.car_images:
+            self.car_images[brand] = self.car_images[brand].resize((200, 100), Image.LANCZOS)
+
+    def show_images(self):
+
+        row = 0
+        column = 0
+        for brand, image in self.car_images.items():
+            image_tk = ImageTk.PhotoImage(image)
+            label = tk.Label(self.frame, text=brand, image=image_tk)
+            label.image = image_tk
+            label.grid(row=row, column=column, padx=12, pady=6)
+
+            def create_button(brand):
+                def button_clicked():
+                    print(f"You clicked on {brand}!")
+                return button_clicked
+
+            button = tk.Button(self.frame, text=brand, command=create_button(brand))
+            button.grid(row=row + 1, column=column, padx=20, pady=20)
+
+            column += 1
+            if column > 5:
+                column = 0
+                row += 2  
+
+
+        self.window.mainloop()
+Car_Gallery()
