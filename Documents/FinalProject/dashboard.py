@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
-from datetime import date
 from Database import Database
 from PIL import Image, ImageTk
+
 
 class Dashboard:
     def __init__(self):
@@ -15,8 +15,6 @@ class Dashboard:
 
         self.main_frame = tk.Frame(self.window, bg="#d3d3d3")
         self.main_frame.pack(fill=tk.BOTH, expand=True)
-
-        
 
         header = tk.Frame(self.main_frame, bg="#007bff", height=50)
         header.pack(fill=tk.X)
@@ -56,7 +54,7 @@ class Dashboard:
         rental_list_label = tk.Label(self.content_frame, text="List of Rentals", font=("Arial", 16), bg="#d3d3d3")
         rental_list_label.pack(pady=10)
 
-        self.tree = ttk.Treeview(self.content_frame, columns=("ID", "Customer Name", "Contact", "Car", "Date Rented","Date Due","Days Rented","Total"), show="headings")
+        self.tree = ttk.Treeview(self.content_frame, columns=("ID", "Customer Name", "Contact", "Car", "Date Rented", "Date Due", "Days Rented", "Total"), show="headings")
         self.tree.heading("ID", text="ID")
         self.tree.heading("Customer Name", text="Customer Name")
         self.tree.heading("Contact", text="Contact Number")
@@ -75,7 +73,7 @@ class Dashboard:
                        search_term.lower() in rental[3].lower()]
 
         for rental in rentals:
-            self.tree.insert('', tk.END, values=(rental[0], rental[1], rental[2], rental[3], rental[4]))
+            self.tree.insert('', tk.END, values=(rental[0], rental[1], rental[2], rental[3], rental[4], rental[5], rental[6], rental[7]))
 
         self.tree.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
 
@@ -95,56 +93,76 @@ class Dashboard:
 
         rent_window.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 
-        tk.Label(self.window, text="ID", font=("Times", 12)).grid(row=0, column=0, padx=10, pady=5)
-        id_entry = tk.Entry(self.window, width=25)
-        id_entry.grid(row=0, column=1, pady=8) 
-
-        tk.Label(rent_window, text="Customer's Name ", font=("Times", 12)).grid(row=0, column=0)
+        tk.Label(rent_window, text="Customer's Name", font=("Times", 12)).grid(row=0, column=0)
         name_entry = tk.Entry(rent_window, width=25)
         name_entry.grid(row=0, column=1, pady=8)
 
-        tk.Label(rent_window, text="Contact Number ", font=("Times", 12)).grid(row=1, column=0)
+        tk.Label(rent_window, text="Contact Number", font=("Times", 12)).grid(row=1, column=0)
         contact_entry = tk.Entry(rent_window, width=25)
         contact_entry.grid(row=1, column=1, pady=8)
 
-        tk.Label(rent_window, text="Type of Vehicle ", font=("Times", 12)).grid(row=2, column=0)
-        vehicle_types = ["Honda BR-V", "Honda HR-V", "Honda Brio", "Honda Civic", "Toyota Hilux",
-                         "Toyota Innova MPV", "Toyota Wigo G-CVT", "Toyota Tundra", "Toyota Sienna"
-                         "Toyota Camry", "Honda CR-V", "Ford Fusion", "Ford Explorer", "Kia Carnival"
-                         "Honda Odyssey", "Ford Transit", "Mercedes-Benz Sprinter", "Chevrolet Express", "Nissan Livina"                                                           
-                         "Ford Everest","Ford Everest Titanium", "Nissan NV350", "Chevrolet Equinnox",
-                         "Chevloret Colorado Z71", "Mercedes-Benz EQV", "GMC Savana", "Rivian R1T", "Honda Freed",
-                         "Chrysler Pacifica Pinnacle", "Mitsubishi Xpander MVP", "Mitsubishi Mirage"
-                         ]
+        tk.Label(rent_window, text="Type of Vehicle", font=("Times", 12)).grid(row=2, column=0)
+        vehicle_types = [
+            "Honda BR-V", "Honda HR-V", "Honda Brio", "Honda Civic", "Toyota Hilux",
+            "Toyota Innova MPV", "Toyota Wigo G-CVT", "Toyota Tundra", "Toyota Sienna",
+            "Toyota Camry", "Honda CR-V", "Ford Fusion", "Ford Explorer", "Kia Carnival",
+            "Honda Odyssey", "Ford Transit", "Mercedes-Benz Sprinter", "Chevrolet Express",
+            "Nissan Livina", "Ford Everest", "Ford Everest Titanium", "Nissan NV350",
+            "Chevrolet Equinox", "Chevrolet Colorado Z71", "Mercedes-Benz EQV",
+            "GMC Savana", "Rivian R1T", "Honda Freed", "Chrysler Pacifica Pinnacle",
+            "Mitsubishi Xpander MVP", "Mitsubishi Mirage"
+        ]
         vehicle_combobox = ttk.Combobox(rent_window, values=vehicle_types, width=23, font=("Times", 10))
         vehicle_combobox.grid(row=2, column=1, pady=8)
 
-        tk.Label(rent_window, text="Rent Date ", font=("Times", 12)).grid(row=3, column=0)
+        tk.Label(rent_window, text="Rent Date", font=("Times", 12)).grid(row=3, column=0)
         date_entry = tk.Entry(rent_window, width=25)
         date_entry.grid(row=3, column=1, pady=8)
 
-        tk.Label(rent_window, text="Rent Due ", font=("Times", 12)).grid(row=4, column=0)
+        tk.Label(rent_window, text="Rent Due", font=("Times", 12)).grid(row=4, column=0)
         due_entry = tk.Entry(rent_window, width=25)
         due_entry.grid(row=4, column=1, pady=8)
 
-        tk.Label(rent_window, text="Days Rented ", font=("Times", 12)).grid(row=5, column=0)
+        tk.Label(rent_window, text="Days Rented", font=("Times", 12)).grid(row=5, column=0)
         day_rent_entry = tk.Entry(rent_window, width=25)
         day_rent_entry.grid(row=5, column=1, pady=8)
 
-        tk.Label(rent_window, text="Cost per day ", font=("Times", 12)).grid(row=6, column=0)
+        tk.Label(rent_window, text="Cost per day", font=("Times", 12)).grid(row=6, column=0)
         cost_entry = tk.Entry(rent_window, width=25)
         cost_entry.grid(row=6, column=1, pady=8)
         cost_entry.insert(0, "4120")
 
-        tk.Label(rent_window, text="Total: ", font=("Times", 12)).grid(row=7, column=0)
+        tk.Label(rent_window, text="Total:", font=("Times", 12)).grid(row=7, column=0)
         total_label = tk.Label(rent_window, width=25)
         total_label.grid(row=7, column=1, pady=8)
 
         def submit():
-            day_rent = int(day_rent_entry.get())
-            cost = int(cost_entry.get())
-            total_cost = day_rent * cost
-            total_label.config(text=f"Total Cost: ₱{total_cost:,}")
+            try:
+                day_rent = int(day_rent_entry.get())
+                cost = int(cost_entry.get())
+                total_cost = day_rent * cost
+                total_label.config(text=f"Total Cost: ₱{total_cost:,}")
+
+                # Save rental info to the database
+                customer_name = name_entry.get()
+                contact_number = contact_entry.get()
+                vehicle = vehicle_combobox.get()
+                rent_date = date_entry.get()
+                rent_due = due_entry.get()
+                days_rented = day_rent_entry.get()
+
+                # Ensure the required fields are filled
+                if not all([customer_name, contact_number, vehicle, rent_date, rent_due]):
+                    messagebox.showwarning("Incomplete Data", "Please fill all fields.")
+                    return
+
+                self.db.rent_car(customer_name, contact_number, vehicle, rent_date, rent_due, day_rent, total_cost)
+                messagebox.showinfo("Success", "Rental Confirmed!")
+                self.display_rentals()  # Refresh the rental display
+
+                rent_window.destroy()  # Close the rental window
+            except ValueError:
+                messagebox.showerror("Input Error", "Please enter valid numbers for days and cost.")
 
         button = tk.Button(rent_window, text="Enter", command=submit)
         button.config(height=2, width=4)
@@ -158,54 +176,54 @@ class Dashboard:
         frame.pack()
 
         car_images = {
-            "Honda BR-V": Image.open("hondabr-v.jpg"),
-            "Honda HR-V": Image.open("hondahr-v.jpg"),
-            "Honda Brio": Image.open("hondab.jpg"),
-            "Honda Civic": Image.open("hondac.jpg"),
-            "Honda CR-V": Image.open("hondacr-v.jpg"),
-            "Toyota Hilux": Image.open("toyotahilux.jpg"),
-            "Toyota Innova MPV": Image.open("toyotainn.jpg"),
-            "Toyota Wigo G-CVT": Image.open("toyotawig.jpg"),
-            "Toyota Sienna": Image.open("toyotas.jpg"),
-            "Toyota Camry": Image.open("toyotac.jpg"),
-            "Ford Fusion": Image.open("fordf.jpg"),
-            "Ford Explorer": Image.open("fordex.jpg"),
-            "Kia Carnival": Image.open("kiac.png"),
-            "Honda Odyssey": Image.open("hondaodyssey.jpg"),
-            "Ford Transit": Image.open("fordtransit.jpg"),
-            "Mercedes-Benz Sprinter": Image.open("mercedes.jpg"),
-            "Chevrolet Express": Image.open("chevroletexpress.jpg"),
-            "Nissan Livina": Image.open("nissanlivina.jpg"),
-            "Ford Everest": Image.open(" fordeverest.jpg"),
-            "Ford Everest Titanium": Image.open("fordeverestitanium.jpg"),
-            "Nissan NV350": Image.open("nissan.jpg"),
-            "Chevrolet Equinnox": Image.open("chevroletequinnox.jpg"),
-            "Chevrolet Colorado Z71": Image.open("chevroletcolorado.jpg"),
-            "Mercedes-Benz EQV": Image.open("mercedesbenzeqv.jpg"),
-            "GMC Savana": Image.open("gmcsavana.jpg"),
-            "Rivian R1T": Image.open("rivianr1t.jpg"),
-            "Honda Freed": Image.open("hondafreed.jpg"),
-            "Chrysler Pacifica Pinnacle": Image.open("chrysler.jpg"),
-            "Mitsubishi Xpander MPV": Image.open("mitsubishix.jpg"),
-            "Mitsubishi Mirage": Image.open("mitsubishim.jpg")
+            "Honda BR-V": "hondabr-v.jpg",
+            "Honda HR-V": "hondahr-v.jpg",
+            "Honda Brio": "hondab.jpg",
+            "Honda Civic": "hondac.jpg",
+            "Honda CR-V": "hondacr-v.jpg",
+            "Toyota Hilux": "toyotahilux.jpg",
+            "Toyota Innova MPV": "toyotainn.jpg",
+            "Toyota Wigo G-CVT": "toyotawig.jpg",
+            "Toyota Sienna": "toyotas.jpg",
+            "Toyota Camry": "toyotac.jpg",
+            "Ford Fusion": "fordf.jpg",
+            "Ford Explorer": "fordex.jpg",
+            "Kia Carnival": "kiac.png",
+            "Honda Odyssey": "hondaodyssey.jpg",
+            "Ford Transit": "fordtransit.jpg",
+            "Mercedes-Benz Sprinter": "mercedes.jpg",
+            "Chevrolet Express": "chevroletexpress.jpg",
+            "Nissan Livina": "nissanlivina.jpg",
+            "Ford Everest": "fordeverest.jpg",
+            "Ford Everest Titanium": "fordeverestitanium.jpg",
+            "Nissan NV350": "nissan.jpg",
+            "Chevrolet Equinox": "chevroletequinnox.jpg",
+            "Chevrolet Colorado Z71": "chevroletcolorado.jpg",
+            "Mercedes-Benz EQV": "mercedesbenzeqv.jpg",
+            "GMC Savana": "gmcsavana.jpg",
+            "Rivian R1T": "rivianr1t.jpg",
+            "Honda Freed": "hondafreed.jpg",
+            "Chrysler Pacifica Pinnacle": "chrysler.jpg",
+            "Mitsubishi Xpander MVP": "mitsubishix.jpg",
+            "Mitsubishi Mirage": "mitsubishim.jpg"
         }
 
-        for brand in car_images:
-            car_images[brand] = car_images[brand].resize((200, 100), Image.LANCZOS)
+        car_images_tk = {}
+        for brand, image_path in car_images.items():
+            try:
+                image = Image.open(image_path).resize((200, 100), Image.LANCZOS)
+                car_images_tk[brand] = ImageTk.PhotoImage(image)
+            except FileNotFoundError:
+                messagebox.showwarning("Image Error", f"Image {image_path} not found.")
 
         row = 0
         column = 0
-        for brand, image in car_images.items():
-            image_tk = ImageTk.PhotoImage(image)
+        for brand, image_tk in car_images_tk.items():
             label = tk.Label(frame, text=brand, image=image_tk)
-            label.image = image_tk
+            label.image = image_tk  # Keep a reference to avoid garbage collection
             label.grid(row=row, column=column, padx=12, pady=6)
 
-            def create_button(brand):
-                def button_clicked():
-                    return button_clicked
-
-            button = tk.Button(frame, text=brand, command=create_button(brand))
+            button = tk.Button(frame, text=brand, command=lambda b=brand: self.show_details(b))
             button.grid(row=row + 1, column=column, padx=20, pady=20)
 
             column += 1
@@ -213,20 +231,8 @@ class Dashboard:
                 column = 0
                 row += 2
 
-    def confirm_rental(self):
-        customer_name = self.entries[0].get()
-        contact_number = self.entries[1].get()
-        car = self.entries[2].get()
-        date_rented = self.entries[3].get()
-
-        if not all([customer_name, contact_number, car, date_rented]):
-            messagebox.showwarning("Incomplete Data", "Please fill all fields.")
-            return
-
-        self.db.rent_car(customer_name, contact_number, car, date_rented)
-        messagebox.showinfo("Success", "Rental Confirmed!")
-
-        self.display_rentals()
+    def show_details(self, brand):
+        messagebox.showinfo("Car Details", f"You clicked on {brand}!")
 
     def show_update_form(self):
         selected_item = self.tree.selection()
@@ -241,13 +247,15 @@ class Dashboard:
         contact_number = simpledialog.askstring("Update", f"Edit Contact Number ({rental_data[2]}):", initialvalue=rental_data[2])
         car = simpledialog.askstring("Update", f"Edit Car ({rental_data[3]}):", initialvalue=rental_data[3])
         date_rented = simpledialog.askstring("Update", f"Edit Date Rented ({rental_data[4]}):", initialvalue=rental_data[4])
+        rent_due = simpledialog.askstring("Update", f"Edit Rent Due ({rental_data[5]}):", initialvalue=rental_data[5])
+        days_rented = simpledialog.askstring("Update", f"Edit Days Rented ({rental_data[6]}):", initialvalue=rental_data[6])
 
-        if not all([customer_name, contact_number, car, date_rented]):
+        if not all([customer_name, contact_number, car, date_rented, rent_due, days_rented]):
             messagebox.showwarning("Incomplete Data", "All fields must be filled.")
             return
 
         rental_id = rental_data[0]
-        self.db.update_rental(rental_id, customer_name, contact_number, car, date_rented)
+        self.db.update_rental(rental_id, customer_name, contact_number, car, date_rented, rent_due, days_rented)
         self.display_rentals()
         messagebox.showinfo("Success", "Rental Updated!")
 
