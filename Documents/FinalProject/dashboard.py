@@ -69,8 +69,8 @@ class Dashboard:
         rentals = self.db.fetch_rentals()
         if search_term:
             rentals = [rental for rental in rentals if search_term.lower() in rental[1].lower() or
-                       search_term.lower() in rental[2].lower() or
-                       search_term.lower() in rental[3].lower()]
+                   search_term.lower() in rental[2].lower() or
+                   search_term.lower() in rental[3].lower()]
 
         for rental in rentals:
             self.tree.insert('', tk.END, values=(rental[0], rental[1], rental[2], rental[3], rental[4], rental[5], rental[6], rental[7]))
